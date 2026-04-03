@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { fadeUp } from '@/lib/animations';
+import { Magnetic } from '@/components/ui/Magnetic';
 
 export function Hero() {
   const scrollTo = (id: string) => {
@@ -21,26 +22,32 @@ export function Hero() {
       </motion.div>
 
       <motion.h1 {...fadeUp(0.1)} className="text-5xl md:text-7xl font-sans tracking-tight text-foreground max-w-4xl leading-[1.1] mb-6">
-        I design and build <span className="font-serif italic text-muted-foreground">thoughtful</span> digital experiences.
+        <span className="inline-block transition-all duration-300 hover:tracking-wide hover:text-foreground/80 cursor-default">I build systems</span>
+        <br/>
+        <span className="inline-block transition-all duration-300 hover:tracking-[0.02em] hover:text-foreground/80 cursor-default">that feel <span className="font-serif italic text-muted-foreground transition-colors duration-300 hover:text-foreground">invisible</span>.</span>
       </motion.h1>
 
       <motion.p {...fadeUp(0.2)} className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-12">
-        Focused on clarity, performance, and meaningful interaction.
+        Fullstack developer & UI/UX designer focused on clarity, performance, and interaction.
       </motion.p>
 
-      <motion.div {...fadeUp(0.3)} className="flex items-center gap-4">
-        <button 
-          onClick={() => scrollTo('work')}
-          className="bg-foreground text-background px-6 py-3 rounded-full font-medium hover:scale-105 active:scale-95 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
-        >
-          View Work
-        </button>
-        <button 
-          onClick={() => scrollTo('contact')}
-          className="bg-transparent text-foreground border border-border px-6 py-3 rounded-full font-medium hover:bg-muted/50 hover:scale-102 active:scale-[0.98] transition-all"
-        >
-          Contact Me
-        </button>
+      <motion.div {...fadeUp(0.3)} className="flex items-center gap-4 relative z-10">
+        <Magnetic>
+          <button 
+            onClick={() => scrollTo('work')}
+            className="bg-foreground text-background px-6 py-3 rounded-full font-medium active:scale-95 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
+          >
+            View Work
+          </button>
+        </Magnetic>
+        <Magnetic>
+          <button 
+            onClick={() => scrollTo('contact')}
+            className="bg-transparent text-foreground border border-border px-6 py-3 rounded-full font-medium hover:bg-muted/50 active:scale-[0.98] transition-all"
+          >
+            Contact Me
+          </button>
+        </Magnetic>
       </motion.div>
     </section>
   );

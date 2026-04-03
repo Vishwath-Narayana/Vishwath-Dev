@@ -4,8 +4,18 @@ import { Work } from './components/sections/Work';
 import { About } from './components/sections/About';
 import { Thinking } from './components/sections/Thinking';
 import { Contact } from './components/sections/Contact';
+import { useEffect } from 'react';
 
 function App() {
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      document.documentElement.style.setProperty('--mouse-x', `${e.clientX}px`);
+      document.documentElement.style.setProperty('--mouse-y', `${e.clientY}px`);
+    };
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   return (
     <div className="min-h-screen bg-background relative selection:bg-muted-foreground/20">
       {/* Subtle background grain or gradient (optional touch) */}
