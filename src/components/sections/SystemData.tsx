@@ -3,23 +3,22 @@ import { fadeUp } from '@/lib/animations';
 import { useDevMode } from '@/contexts/DevModeContext';
 
 const TECH_STACK = {
-  frontend: ['React', 'TypeScript', 'Tailwind', 'Framer Motion'],
-  backend: ['Node.js', 'Go', 'Express', 'GraphQL'],
-  data: ['PostgreSQL', 'Redis', 'TimescaleDB'],
-  tools: ['Git', 'Docker', 'AWS ECS', 'Figma']
+  frontend: ['React','Tailwind', 'Framer Motion', 'GSAP', 'Three.js'],
+  backend: ['Node.js', 'Express'],
+  data: ['MongoDB'],
+  tools: ['Git', 'GitHub', 'Docker', 'Framer', 'Figma', 'Miro']
 };
 
 const LANGUAGES = [
-  { name: 'JavaScript', proficiency: 'Expert' },
-  { name: 'TypeScript', proficiency: 'Expert' },
-  { name: 'Python',     proficiency: 'Advanced' },
-  { name: 'Go',         proficiency: 'Intermediate' },
-  { name: 'SQL',        proficiency: 'Advanced' }
+  { name: 'English', proficiency: 'Fluent' },
+  { name: 'Telugu', proficiency: 'Native' },
+  { name: 'Hindi',     proficiency: 'Conversational' },
 ];
 
 const EDUCATION = [
-  { term: '2020-2024', degree: 'B.S. Computer Science', meta: 'Systems Engineering Focus' },
-  { term: '2019-2020', degree: 'UI/UX Certification', meta: 'Human-Computer Interaction' }
+  { term: '2023-present', degree: 'B.S. Computer Science', meta: 'Kakatiya Institute of Technology and Science, Warangal' },
+  { term: '2021-2023', degree: 'Intermediate', meta: 'Narayana Junior College, Hyderabad(1st year),     SR Edu Center, Warangal (2nd year)',  },
+  { term: '2021', degree: '10th', meta: 'Tejaswi High School, Hanamkonda' }
 ];
 
 const CAPABILITIES = [

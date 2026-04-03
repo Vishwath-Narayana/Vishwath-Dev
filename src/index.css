@@ -59,9 +59,11 @@
 @layer base {
   * {
     @apply border-border;
+    cursor: none !important;
   }
   body {
     @apply bg-background text-foreground antialiased font-sans;
+    cursor: none !important;
   }
   
   :root {
@@ -77,7 +79,6 @@
 }
 
 .dev-mode {
-  cursor: crosshair;
   font-family: 'JetBrains Mono', monospace !important;
   letter-spacing: 0.4px;
   line-height: 1.6;

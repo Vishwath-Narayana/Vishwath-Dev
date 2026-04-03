@@ -70,7 +70,7 @@ export function Hero() {
                   onClick={() => scrollTo('work')}
                   className="bg-foreground text-background px-6 py-3 rounded-full font-medium active:scale-95 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
                 >
-                  View Systems
+                  About me
                 </button>
               </Magnetic>
               <Magnetic>
@@ -78,7 +78,7 @@ export function Hero() {
                   onClick={() => scrollTo('work')}
                   className="bg-transparent text-foreground border border-border px-6 py-3 rounded-full font-medium hover:bg-muted/50 active:scale-[0.98] transition-all"
                 >
-                  Explore Work
+                  Projects
                 </button>
               </Magnetic>
             </motion.div>

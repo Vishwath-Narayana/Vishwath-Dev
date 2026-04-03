@@ -6,97 +6,153 @@ import { useDevMode } from '@/contexts/DevModeContext';
 const PROJECTS = [
   {
     id: "p1",
-    title: "AI Interaction Engine",
-    description: "A fullstack system designed to handle real-time data processing and intuitive user interaction.",
+    title: "Role-Based File Sharing System",
+    description:
+      "A secure file management system enabling role-based access, controlled sharing, and scalable cloud storage.",
     techStack: {
       Frontend: "React, Tailwind",
       Backend: "Node.js, Express",
-      Data: "PostgreSQL, Redis",
-      Infra: "AWS ECS"
+      Data: "MongoDB",
+      Infra: "Cloudinary"
     },
     metrics: [
-      "Handles 5k+ concurrent users",
-      "Sub-100ms response time",
-      "10M+ events processed daily"
+      "Role-based access control",
+      "Secure file uploads & sharing",
+      "Scalable cloud storage integration"
     ],
     details: {
-      problem: "Traditional interfaces broke under the weight of real-time multi-agent streaming.",
-      architecture: "Event-driven architecture utilizing WebSocket connections and Redis pub/sub.",
-      systemDesign: "Decoupled UI from processing logic using an intermediary state machine.",
-      performance: "Optimized rendering via virtualization and aggressive data caching.",
-      uxDecisions: "Adopted a canvas layout to prevent vertical scrolling fatigue during heavy data flow.",
-      impact: "Increased user retention by 40% and removed interaction bottlenecks."
+      problem:
+        "Traditional file sharing systems lack fine-grained access control and secure permission handling.",
+      architecture:
+        "Built a modular backend with authentication middleware and role-based authorization layers.",
+      systemDesign:
+        "Designed a permission-driven system allowing dynamic access control across users and resources.",
+      performance:
+        "Optimized file handling and API responses for smooth upload and retrieval operations.",
+      uxDecisions:
+        "Focused on simplicity and clarity to ensure users can manage files without friction.",
+      impact:
+        "Enabled secure collaboration with controlled access and improved usability."
     },
     devInternals: {
       diagram: [
-        "[Client (React)] ── wss ──> [Edge Gateway]",
+        "[Client (React)] ── HTTP ──> [Express Server]",
         "                                │",
-        "                                ├──> [Auth Service (JWT)]",
+        "                                ├──> [Auth Middleware]",
         "                                │",
-        "                                └──> [Process Cluster (Node)]",
-        "                                          │",
-        "                                          ├──> [Redis Pub/Sub]",
-        "                                          └──> [PostgreSQL DB]"
+        "                                ├──> [Role-Based Access Layer]",
+        "                                │",
+        "                                └──> [MongoDB + Cloudinary]"
       ],
       logs: [
-        "> init.sh --env=production",
-        "> mounting volume /data/pg_13...",
-        "> [OK] database connected (12ms)",
-        "> starting websocket listeners on port 8080...",
-        "> [OK] gateway active. listening for connections."
+        "> initializing file_service...",
+        "> connecting to MongoDB...",
+        "> [OK] database connected",
+        "> uploading file to cloud storage...",
+        "> [OK] file stored successfully"
       ],
       services: [
-        { name: "API Gateway", status: "Running" },
-        { name: "PostgreSQL", status: "Connected" },
-        { name: "Redis Cache", status: "Active" },
-        { name: "Auth Cluster", status: "Running" }
+        { name: "API Server", status: "Running" },
+        { name: "MongoDB", status: "Connected" },
+        { name: "Cloudinary", status: "Active" }
       ]
     }
   },
   {
     id: "p2",
-    title: "Real-time Financial Data System",
-    description: "A scalable, clean dashboard architecture mapping high-frequency trading data.",
+    title: "Real-Time Chat System",
+    description:
+      "A real-time messaging system supporting direct and group communication with low-latency updates.",
     techStack: {
-      Frontend: "React, Recharts",
-      Backend: "Go",
-      Data: "TimescaleDB",
-      Infra: "Cloudflare Workers"
+      Frontend: "React, Tailwind",
+      Backend: "Node.js, Express",
+      Data: "MongoDB",
+      Infra: "Socket.io"
     },
     metrics: [
-      "Reduced load time by 40%",
-      "0% downtime during market opens",
-      "Optimized API response by 60%"
+      "Real-time messaging",
+      "Group & direct chats",
+      "Low-latency communication"
     ],
     details: {
-      problem: "Financial dashboards are overwhelmingly cluttered with unnecessary synchronous data fetches blocking the main thread.",
-      architecture: "GraphQL federation pulling from microservices, served via Edge workers.",
-      systemDesign: "Created a layered data-fetching queue ensuring priority metrics render first.",
-      performance: "Heavy use of Web Workers to offload calculation logic from the UI thread.",
-      uxDecisions: "Focused on progressive disclosure, showing absolute essential metrics immediately.",
-      impact: "User satisfaction rose to 4.8/5, praising the clean aesthetic and instant feel."
+      problem:
+        "Traditional messaging systems struggle with latency and inconsistent real-time updates.",
+      architecture:
+        "Implemented WebSocket-based communication using Socket.io for bidirectional data flow.",
+      systemDesign:
+        "Designed an event-driven system to handle message broadcasting and synchronization.",
+      performance:
+        "Ensured fast message delivery with efficient socket handling and minimal re-renders.",
+      uxDecisions:
+        "Built a smooth, responsive UI with subtle animations for a native-like experience.",
+      impact:
+        "Delivered seamless communication experience with reliable real-time updates."
     },
     devInternals: {
       diagram: [
-        "[Client Dashboard] ── GQL ──> [Apollo Router (Edge)]",
-        "                                   │",
-        "         ┌─────────────────────────┼─────────────────────────┐",
-        "         │                         │                         │",
-        " [Pricing Service (Go)]   [Portfolio Service (Go)]   [History Service (Go)]",
-        "         │                         │                         │",
-        " [TimescaleDB Multi-node] ── <shared state> ────────> [Redis Ingestion Buffer]"
+        "[Client] ── WebSocket ──> [Socket Server]",
+        "                               │",
+        "                               ├──> [Message Handler]",
+        "                               └──> [MongoDB Storage]"
       ],
       logs: [
-        "[system] allocating generic worker nodes...",
-        "[router] loading supergraph schema...",
-        "[OK] pricing service healthy (ping 4ms)",
-        "[OK] portfolio service healthy (ping 3ms)",
-        "[system] ready to accept high-frequency ingest"
+        "> starting websocket server...",
+        "> user connected: id=3421",
+        "> message broadcasted",
+        "> [OK] message delivered"
       ],
       services: [
-        { name: "Apollo Router", status: "Running" },
-        { name: "Pricing Node", status: "Connected" },
-        { name: "TimescaleDB", status: "Active" }
+        { name: "Socket Server", status: "Running" },
+        { name: "MongoDB", status: "Connected" }
+      ]
+    }
+  },
+  {
+    id: "p3",
+    title: "Developer Portfolio System",
+    description:
+      "An interactive portfolio system blending engineering and design through dynamic UI and motion-based interactions.",
+    techStack: {
+      Frontend: "React, Tailwind",
+      Backend: "—",
+      Data: "—",
+      Infra: "Framer Motion"
+    },
+    metrics: [
+      "Dual-mode UI (Visual + SYS.DEV)",
+      "Custom cursor interactions",
+      "Motion-driven experience"
+    ],
+    details: {
+      problem:
+        "Traditional portfolios fail to showcase both technical depth and design thinking.",
+      architecture:
+        "Built a component-driven frontend with mode-based rendering logic.",
+      systemDesign:
+        "Implemented dual interfaces (visual and system mode) for different interaction styles.",
+      performance:
+        "Optimized animations and rendering for smooth, responsive interactions.",
+      uxDecisions:
+        "Focused on typography, spacing, and motion to create a distinctive experience.",
+      impact:
+        "Created a unique developer identity combining engineering and UI/UX design."
+    },
+    devInternals: {
+      diagram: [
+        "[User Input] ──> [Mode Toggle System]",
+        "                         │",
+        "        ┌───────────────┴───────────────┐",
+        "   [Visual UI]                  [SYS.DEV UI]"
+      ],
+      logs: [
+        "> initializing portfolio.system...",
+        "> loading visual mode...",
+        "> switching to sys.dev...",
+        "> [OK] interface ready"
+      ],
+      services: [
+        { name: "UI Engine", status: "Running" },
+        { name: "Animation Layer", status: "Active" }
       ]
     }
   }
