@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion';
+import { useDevMode } from '@/contexts/DevModeContext';
 
 export function Navbar() {
+  const { isDevMode, toggleDevMode } = useDevMode();
   const scrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -20,6 +22,20 @@ export function Navbar() {
           workspace.
         </div>
         <div className="flex items-center gap-6 text-sm font-medium text-foreground">
+          <div className="hidden md:flex items-center gap-1 bg-muted/50 p-1 rounded-full border border-border mr-2">
+            <button 
+              onClick={() => isDevMode && toggleDevMode()}
+              className={`px-3 py-1 rounded-full transition-all text-xs font-sans ${!isDevMode ? 'bg-background shadow-sm text-foreground' : 'text-muted-foreground hover:text-foreground'}`}
+            >
+              Visual
+            </button>
+            <button 
+              onClick={() => !isDevMode && toggleDevMode()}
+              className={`px-3 py-1 rounded-full transition-all text-xs font-mono font-medium tracking-tight ${isDevMode ? 'bg-foreground text-background shadow-sm' : 'text-muted-foreground hover:text-foreground'}`}
+            >
+              SYS.DEV
+            </button>
+          </div>
           <button onClick={() => scrollTo('work')} className="hover:opacity-60 transition-opacity">Work</button>
           <button onClick={() => scrollTo('about')} className="hover:opacity-60 transition-opacity">About</button>
           <button onClick={() => scrollTo('contact')} className="hover:opacity-60 transition-opacity">Contact</button>

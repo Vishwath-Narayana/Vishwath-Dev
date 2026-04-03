@@ -5,6 +5,7 @@ import { Work } from './components/sections/Work';
 import { About } from './components/sections/About';
 import { Thinking } from './components/sections/Thinking';
 import { Contact } from './components/sections/Contact';
+import { DevModeProvider } from './contexts/DevModeContext';
 import { useEffect } from 'react';
 
 function App() {
@@ -18,21 +19,23 @@ function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-background relative selection:bg-muted-foreground/20">
-      {/* Subtle background grain or gradient (optional touch) */}
-      <div className="fixed inset-0 pointer-events-none opacity-[0.015] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
-      
-      <Navbar />
-      
-      <main className="flex flex-col items-center justify-center w-full">
-        <Hero />
-        <Methodology />
-        <Work />
-        <About />
-        <Thinking />
-        <Contact />
-      </main>
-    </div>
+    <DevModeProvider>
+      <div className="min-h-screen bg-background relative selection:bg-muted-foreground/20">
+        {/* Subtle background grain or gradient (optional touch) */}
+        <div className="fixed inset-0 pointer-events-none opacity-[0.015] bg-[url('https://grainy-gradients.vercel.app/noise.svg')]"></div>
+        
+        <Navbar />
+        
+        <main className="flex flex-col items-center justify-center w-full">
+          <Hero />
+          <Methodology />
+          <Work />
+          <About />
+          <Thinking />
+          <Contact />
+        </main>
+      </div>
+    </DevModeProvider>
   );
 }
 
