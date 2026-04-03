@@ -103,12 +103,27 @@ const PROJECTS = [
 ];
 
 export function Work() {
+  const { isDevMode } = useDevMode();
+
   return (
     <section id="work" className="py-24 px-6 max-w-5xl mx-auto w-full relative">
       <div className="absolute inset-0 pointer-events-none glow-overlay opacity-50 rounded-3xl" />
-      <motion.div {...fadeUp(0)} className="mb-12 relative z-10">
-        <h2 className="text-3xl font-serif text-foreground mb-4 w-fit hover:tracking-wide transition-all duration-300">Systems I've built</h2>
-        <p className="text-muted-foreground max-w-xl hover:text-foreground transition-colors duration-300">Production-focused applications combining engineering and design thinking.</p>
+      <motion.div {...fadeUp(0)} className="mb-16 md:mb-20 relative z-10 w-full">
+        {isDevMode ? (
+          <div>
+            <h2 className="text-dev-primary font-mono text-xl md:text-2xl tracking-tight mb-8 w-fit drop-shadow-[0_0_8px_rgba(0,255,159,0.3)]">{"> systems.list()"}</h2>
+            <p className="text-dev-soft/80 font-mono text-sm max-w-xl leading-relaxed">
+              Production-focused applications combining engineering and design thinking.
+            </p>
+          </div>
+        ) : (
+          <div>
+            <h2 className="text-3xl font-serif text-foreground mb-4 w-fit hover:tracking-wide transition-all duration-300">Systems I've built</h2>
+            <p className="text-muted-foreground max-w-xl hover:text-foreground transition-colors duration-300 leading-relaxed">
+              Production-focused applications combining engineering and design thinking.
+            </p>
+          </div>
+        )}
       </motion.div>
       <div className="flex flex-col gap-6 relative z-10">
         {PROJECTS.map((project, i) => (
@@ -126,7 +141,7 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
   return (
     <motion.div 
       {...fadeUp(index * 0.1)}
-      className={`relative rounded-2xl border transition-all duration-300 hover:-translate-y-1 overflow-hidden group opacity-85 hover:opacity-100 ${isDevMode ? 'bg-[#0a0a0a] border-primary/20 shadow-[0_0_30px_rgba(0,0,0,0.5)]' : 'bg-card border-border'}`}
+      className={`relative rounded-2xl border transition-all duration-300 hover:-translate-y-1 overflow-hidden group opacity-85 hover:opacity-100 ${isDevMode ? 'bg-[#050505] border-dev-primary/30 shadow-[0_0_0_1px_rgba(0,255,159,0.1),0_10px_40px_rgba(0,255,159,0.05)] hover:shadow-[0_0_0_1px_rgba(0,255,159,0.3),0_10px_40px_rgba(0,255,159,0.15)] hover:border-dev-primary/60' : 'bg-card border-border'}`}
     >
       <div className="absolute inset-0 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.015]" />
       {!isDevMode && <div className="absolute inset-0 bg-muted/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />}
@@ -139,20 +154,20 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
           onClick={() => setIsOpen(!isOpen)}
         >
           <div className="max-w-2xl">
-            <h3 className={`text-2xl font-medium mb-2 transition-colors ${isDevMode ? 'text-green-400 font-mono tracking-tight' : 'text-foreground group-hover:text-primary'}`}>
+            <h3 className={`text-2xl font-medium mb-2 transition-colors duration-300 ${isDevMode ? 'text-dev-primary font-mono tracking-tight group-hover:text-white drop-shadow-[0_0_8px_rgba(0,255,159,0.5)]' : 'text-foreground group-hover:text-primary'}`}>
               {isDevMode ? `<${project.title.replace(/\s+/g, '')} />` : project.title}
             </h3>
-            <p className={`mb-6 transition-colors leading-relaxed ${isDevMode ? 'text-green-500/70 font-mono text-sm' : 'text-muted-foreground group-hover:text-foreground'}`}>
+            <p className={`mb-6 transition-colors leading-relaxed ${isDevMode ? 'text-dev-soft font-mono text-sm opacity-80' : 'text-muted-foreground group-hover:text-foreground'}`}>
               {project.description}
             </p>
             
             <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm mb-6">
               {Object.entries(project.techStack).map(([layer, tech]) => (
                 <div key={layer}>
-                  <span className={`${isDevMode ? 'text-green-600/60 font-mono' : 'text-muted-foreground'} mr-2`}>
+                  <span className={`${isDevMode ? (layer === 'Frontend' ? 'text-dev-soft/70' : layer === 'Backend' ? 'text-dev-primary/90' : 'text-[#aaffcc]/60') + ' font-mono' : 'text-muted-foreground'} mr-2`}>
                     {isDevMode ? `[${layer.toLowerCase()}]` : layer}
                   </span>
-                  <span className={`font-medium ${isDevMode ? 'text-green-400 font-mono text-xs' : 'text-foreground'}`}>
+                  <span className={`font-medium ${isDevMode ? 'text-dev-primary font-mono text-xs' : 'text-foreground'}`}>
                     {tech as string}
                   </span>
                 </div>
@@ -224,11 +239,11 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="overflow-hidden"
             >
-              <div className="pt-8 mt-8 border-t border-green-900/50 grid grid-cols-1 md:grid-cols-2 gap-8 text-sm font-mono text-green-400/80">
+              <div className="pt-8 mt-8 border-t border-dev-primary/20 grid grid-cols-1 md:grid-cols-2 gap-8 text-sm font-mono text-dev-primary/80">
                 
                 {/* System Logs */}
-                <div className="bg-[#050505] border border-green-900/40 p-4 rounded-xl shadow-inner">
-                  <h4 className="text-xs text-green-600 mb-3 uppercase tracking-wider border-b border-green-900/30 pb-2">_system.stdout</h4>
+                <div className="bg-[#050505] border border-dev-primary/30 p-4 rounded-xl shadow-[inset_0_0_20px_rgba(0,255,159,0.03)]">
+                  <h4 className="text-xs text-dev-soft mb-3 uppercase tracking-wider border-b border-dev-primary/20 pb-2">_system.stdout</h4>
                   <div className="space-y-1.5 text-xs opacity-80">
                     {project.devInternals.logs.map((log: string, idx: number) => (
                        <motion.div 
@@ -249,9 +264,9 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
                 </div>
 
                 {/* Architecture Graph */}
-                <div className="bg-[#050505] border border-green-900/40 p-4 rounded-xl shadow-inner overflow-x-auto">
-                  <h4 className="text-xs text-green-600 mb-3 uppercase tracking-wider border-b border-green-900/30 pb-2">_architecture.graph</h4>
-                  <pre className="text-[10px] leading-relaxed text-green-300 opacity-80">
+                <div className="bg-[#050505] border border-dev-primary/30 p-4 rounded-xl shadow-[inset_0_0_20px_rgba(0,255,159,0.03)] overflow-x-auto">
+                  <h4 className="text-xs text-dev-soft mb-3 uppercase tracking-wider border-b border-dev-primary/20 pb-2">_architecture.graph</h4>
+                  <pre className="text-[10px] leading-relaxed text-dev-soft opacity-80">
                     {project.devInternals.diagram.join('\n')}
                   </pre>
                 </div>

@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -35,6 +35,27 @@
   }
 }
 
+@layer utilities {
+  .text-dev-primary {
+    color: var(--dev-primary);
+  }
+  .text-dev-soft {
+    color: var(--dev-soft);
+  }
+  .text-dev-dim {
+    color: var(--dev-dim);
+  }
+  .bg-dev-dim {
+    background-color: var(--dev-dim);
+  }
+  .border-dev-dim {
+    border-color: var(--dev-dim);
+  }
+  .shadow-dev-glow {
+    box-shadow: 0 0 0 1px var(--dev-glow), 0 10px 40px var(--dev-glow);
+  }
+}
+
 @layer base {
   * {
     @apply border-border;
@@ -42,4 +63,27 @@
   body {
     @apply bg-background text-foreground antialiased font-sans;
   }
+  
+  :root {
+    --dev-primary: #00ff9f;
+    --dev-soft: #00c97a;
+    --dev-dim: #0a2f1f;
+    --dev-glow: rgba(0, 255, 159, 0.15);
+  }
+}
+
+.dev-mode .glow-overlay {
+  display: none !important;
+}
+
+.dev-mode {
+  cursor: crosshair;
+  font-family: 'JetBrains Mono', monospace !important;
+  letter-spacing: 0.4px;
+  line-height: 1.6;
+}
+
+/* Base custom styles overridden for DEV mode explicitly */
+.dev-mode * {
+  border-color: rgba(0, 255, 159, 0.1);
 }

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 type DevModeContextType = {
   isDevMode: boolean;
@@ -9,6 +9,15 @@ const DevModeContext = createContext<DevModeContextType | undefined>(undefined);
 
 export function DevModeProvider({ children }: { children: React.ReactNode }) {
   const [isDevMode, setIsDevMode] = useState(false);
+  
+  useEffect(() => {
+    if (isDevMode) {
+      document.documentElement.classList.add('dev-mode');
+    } else {
+      document.documentElement.classList.remove('dev-mode');
+    }
+  }, [isDevMode]);
+
   const toggleDevMode = () => setIsDevMode(prev => !prev);
 
   return (
