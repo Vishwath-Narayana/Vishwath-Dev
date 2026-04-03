@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { fadeUp } from '@/lib/animations';
+import heroImg from '@/assets/hero.png';
 
 export function About() {
   return (
@@ -30,14 +31,13 @@ export function About() {
           {...fadeUp(0.2)} 
           className="order-1 lg:order-2 flex justify-center lg:justify-end"
         >
-          {/* Abstract Shape or Image Placeholder */}
-          <div className="w-64 h-64 md:w-80 md:h-80 relative">
-            <div className="absolute inset-0 bg-muted rounded-[2rem] rotate-3 transition-transform hover:rotate-6 duration-500"></div>
-            <div className="absolute inset-0 bg-card border border-border shadow-[0_10px_30px_rgba(0,0,0,0.04)] rounded-[2rem] flex items-center justify-center p-8 text-center -rotate-3 transition-transform hover:rotate-0 duration-500 z-10">
-               <span className="font-serif italic text-2xl text-muted-foreground/50 select-none">
-                 Form follows<br/>function
-               </span>
-            </div>
+          <div className="w-64 h-64 md:w-80 md:h-80 relative group cursor-crosshair">
+            <div className="absolute inset-0 bg-muted rounded-[2rem] rotate-3 transition-transform group-hover:rotate-6 duration-500"></div>
+            <img 
+              src={heroImg} 
+              alt="Profile"
+              className="absolute inset-0 w-full h-full object-cover border border-border shadow-[0_10px_30px_rgba(0,0,0,0.04)] rounded-[2rem] -rotate-3 transition-transform group-hover:rotate-0 duration-500 z-10"
+            />
           </div>
         </motion.div>
       </div>
