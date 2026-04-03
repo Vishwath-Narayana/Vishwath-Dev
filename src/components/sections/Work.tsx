@@ -5,26 +5,50 @@ import { fadeUp } from '@/lib/animations';
 const PROJECTS = [
   {
     id: "p1",
-    title: "AI Operating System",
-    description: "A comprehensive interface for next-gen artificial intelligence interactions.",
-    tags: ["React", "TypeScript", "AI", "Framer Motion"],
+    title: "AI Interaction Engine",
+    description: "A fullstack system designed to handle real-time data processing and intuitive user interaction.",
+    techStack: {
+      Frontend: "React, Tailwind",
+      Backend: "Node.js, Express",
+      Data: "PostgreSQL, Redis",
+      Infra: "AWS ECS"
+    },
+    metrics: [
+      "Handles 5k+ concurrent users",
+      "Sub-100ms response time",
+      "10M+ events processed daily"
+    ],
     details: {
-      problem: "Traditional AI interfaces felt like chat bots rather than integrated workspaces.",
-      approach: "Designed a canvas-based layout where blocks of AI text act as movable widgets.",
-      solution: "Implemented an infinite canvas with React Flow and real-time collaboration features.",
-      impact: "Increased user retention by 40% and improved task completion speed."
+      problem: "Traditional interfaces broke under the weight of real-time multi-agent streaming.",
+      architecture: "Event-driven architecture utilizing WebSocket connections and Redis pub/sub.",
+      systemDesign: "Decoupled UI from processing logic using an intermediary state machine.",
+      performance: "Optimized rendering via virtualization and aggressive data caching.",
+      uxDecisions: "Adopted a canvas layout to prevent vertical scrolling fatigue during heavy data flow.",
+      impact: "Increased user retention by 40% and removed interaction bottlenecks."
     }
   },
   {
     id: "p2",
-    title: "Modern Finance Dashboard",
-    description: "A minimal, clean dashboard for managing personal finances and investments.",
-    tags: ["Next.js", "Tailwind CSS", "Recharts"],
+    title: "Real-time Financial Data System",
+    description: "A scalable, clean dashboard architecture mapping high-frequency trading data.",
+    techStack: {
+      Frontend: "React, Recharts",
+      Backend: "Go",
+      Data: "TimescaleDB",
+      Infra: "Cloudflare Workers"
+    },
+    metrics: [
+      "Reduced load time by 40%",
+      "0% downtime during market opens",
+      "Optimized API response by 60%"
+    ],
     details: {
-      problem: "Financial dashboards are overwhelmingly cluttered with unnecessary data points.",
-      approach: "Focused on progressive disclosure, showing only absolute essential metrics first.",
-      solution: "Created a layered interface where detailed stats only appear on interaction.",
-      impact: "User satisfaction score rose to 4.8/5, praising the clean aesthetic."
+      problem: "Financial dashboards are overwhelmingly cluttered with unnecessary synchronous data fetches blocking the main thread.",
+      architecture: "GraphQL federation pulling from microservices, served via Edge workers.",
+      systemDesign: "Created a layered data-fetching queue ensuring priority metrics render first.",
+      performance: "Heavy use of Web Workers to offload calculation logic from the UI thread.",
+      uxDecisions: "Focused on progressive disclosure, showing absolute essential metrics immediately.",
+      impact: "User satisfaction rose to 4.8/5, praising the clean aesthetic and instant feel."
     }
   }
 ];
@@ -35,7 +59,7 @@ export function Work() {
       <div className="absolute inset-0 pointer-events-none glow-overlay opacity-50 rounded-3xl" />
       <motion.div {...fadeUp(0)} className="mb-12 relative z-10">
         <h2 className="text-3xl font-serif text-foreground mb-4 w-fit hover:tracking-wide transition-all duration-300">Systems I've built</h2>
-        <p className="text-muted-foreground max-w-xl hover:text-foreground transition-colors duration-300">A collection of projects focused on intuitive interfaces and robust functionality.</p>
+        <p className="text-muted-foreground max-w-xl hover:text-foreground transition-colors duration-300">Production-focused applications combining engineering and design thinking.</p>
       </motion.div>
       <div className="flex flex-col gap-6 relative z-10">
         {PROJECTS.map((project, i) => (
@@ -60,22 +84,33 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
       
       <div className="relative z-10 p-6 md:p-8">
         <div 
-          className="flex flex-col md:flex-row md:items-center justify-between gap-4 cursor-pointer"
+          className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
-          <div>
-            <h3 className="text-xl font-medium text-foreground mb-2 transition-colors group-hover:text-primary">{project.title}</h3>
-            <p className="text-muted-foreground mb-4 transition-colors group-hover:text-foreground">{project.description}</p>
-            <div className="flex flex-wrap gap-2">
-              {project.tags.map((tag: string) => (
-                <span key={tag} className="text-xs font-medium bg-muted text-muted-foreground px-2 py-1 rounded-md">
-                  {tag}
+          <div className="max-w-2xl">
+            <h3 className="text-2xl font-medium text-foreground mb-2 transition-colors group-hover:text-primary">{project.title}</h3>
+            <p className="text-muted-foreground mb-6 transition-colors group-hover:text-foreground leading-relaxed">{project.description}</p>
+            
+            <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm mb-6">
+              {Object.entries(project.techStack).map(([layer, tech]) => (
+                <div key={layer}>
+                  <span className="text-muted-foreground mr-2">{layer}</span>
+                  <span className="font-medium text-foreground">{tech as string}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="flex flex-wrap gap-3">
+              {project.metrics.map((metric: string, i: number) => (
+                <span key={i} className="text-xs font-medium bg-muted text-foreground px-3 py-1.5 rounded-full border border-border shadow-sm">
+                  {metric}
                 </span>
               ))}
             </div>
           </div>
-          <div className="text-sm font-medium text-muted-foreground flex items-center gap-1 shrink-0 mt-4 md:mt-0 transition-opacity hover:opacity-70">
-            {isOpen ? "Close module" : "Expand module"} 
+
+          <div className="text-sm font-medium text-muted-foreground flex items-center gap-1 shrink-0 mt-4 lg:mt-0 transition-opacity hover:opacity-70 bg-card/80 p-2 rounded-full border border-border/50 shadow-sm backdrop-blur-sm self-start">
+            {isOpen ? "Close module system" : "Expand module system"} 
             <motion.span animate={{ rotate: isOpen ? 180 : 0 }} className="inline-block ml-1">
               ↓
             </motion.span>
@@ -91,21 +126,29 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="overflow-hidden"
             >
-              <div className="pt-8 mt-8 border-t border-border grid grid-cols-1 md:grid-cols-2 gap-8 text-sm">
+              <div className="pt-8 mt-8 border-t border-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-sm">
                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">Problem</h4>
+                    <h4 className="font-semibold text-foreground mb-2">1. Problem</h4>
                     <p className="text-muted-foreground leading-relaxed">{project.details.problem}</p>
                  </div>
                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">Approach</h4>
-                    <p className="text-muted-foreground leading-relaxed">{project.details.approach}</p>
+                    <h4 className="font-semibold text-foreground mb-2">2. Architecture</h4>
+                    <p className="text-muted-foreground leading-relaxed">{project.details.architecture}</p>
                  </div>
                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">Solution</h4>
-                    <p className="text-muted-foreground leading-relaxed">{project.details.solution}</p>
+                    <h4 className="font-semibold text-foreground mb-2">3. System Design</h4>
+                    <p className="text-muted-foreground leading-relaxed">{project.details.systemDesign}</p>
                  </div>
                  <div>
-                    <h4 className="font-semibold text-foreground mb-2">Impact</h4>
+                    <h4 className="font-semibold text-foreground mb-2">4. Performance</h4>
+                    <p className="text-muted-foreground leading-relaxed">{project.details.performance}</p>
+                 </div>
+                 <div>
+                    <h4 className="font-semibold text-foreground mb-2">5. UX Decisions</h4>
+                    <p className="text-muted-foreground leading-relaxed">{project.details.uxDecisions}</p>
+                 </div>
+                 <div>
+                    <h4 className="font-semibold text-foreground mb-2">6. Impact</h4>
                     <p className="text-muted-foreground leading-relaxed">{project.details.impact}</p>
                  </div>
               </div>

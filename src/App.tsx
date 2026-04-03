@@ -1,5 +1,6 @@
 import { Navbar } from './components/sections/Navbar';
 import { Hero } from './components/sections/Hero';
+import { Methodology } from './components/sections/Methodology';
 import { Work } from './components/sections/Work';
 import { About } from './components/sections/About';
 import { Thinking } from './components/sections/Thinking';
@@ -25,6 +26,7 @@ function App() {
       
       <main className="flex flex-col items-center justify-center w-full">
         <Hero />
+        <Methodology />
         <Work />
         <About />
         <Thinking />

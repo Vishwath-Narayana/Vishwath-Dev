@@ -3,16 +3,16 @@ import { fadeUp } from '@/lib/animations';
 
 const THOUGHTS = [
   {
-    title: "AI & future",
-    desc: "How invisible intelligence will shape our daily tools."
+    title: "Designing for invisible intelligence",
+    desc: "How AI interactions should integrate seamlessly into workflows without feeling bolted-on."
   },
   {
-    title: "Design clarity",
-    desc: "Removing friction until only the essential remains."
+    title: "Reducing friction to essentials",
+    desc: "Applying systemic constraint to strip away the non-essential layers of the UI."
   },
   {
-    title: "Building fast systems",
-    desc: "Performance as a foundational design feature."
+    title: "Performance as UX",
+    desc: "Why sub-100ms response times fundamentally change how users perceive interaction."
   }
 ];
 
