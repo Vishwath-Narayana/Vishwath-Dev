@@ -36,8 +36,8 @@ export function Navbar() {
               SYS.DEV
             </button>
           </div>
+          <button onClick={() => scrollTo('about')} className="hidden sm:block hover:opacity-60 transition-opacity">About me</button>
           <button onClick={() => scrollTo('work')} className="hidden sm:block hover:opacity-60 transition-opacity">Projects</button>
-          <button onClick={() => scrollTo('about')} className="hidden sm:block hover:opacity-60 transition-opacity">About</button>
           <button onClick={() => scrollTo('contact')} className="hidden sm:block hover:opacity-60 transition-opacity">Contact</button>
         </div>
       </nav>

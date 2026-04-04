@@ -67,7 +67,7 @@ export function Hero() {
             <motion.div {...fadeUp(0.3)} className="flex items-center gap-4 relative z-10">
               <Magnetic>
                 <button 
-                  onClick={() => scrollTo('work')}
+                  onClick={() => scrollTo('about')}
                   className="bg-foreground text-background px-6 py-3 rounded-full font-medium active:scale-95 transition-all shadow-[0_10px_30px_rgba(0,0,0,0.04)]"
                 >
                   About me
