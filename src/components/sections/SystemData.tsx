@@ -16,7 +16,7 @@ const LANGUAGES = [
 ];
 
 const EDUCATION = [
-  { term: '2023-present', degree: 'B.S. Computer Science', meta: 'Kakatiya Institute of Technology and Science, Warangal' },
+  { term: '2023-present', degree: 'B.Tech Computer Science and Engineering', meta: 'Kakatiya Institute of Technology and Science, Warangal' },
   { term: '2021-2023', degree: 'Intermediate', meta: 'Narayana Junior College, Hyderabad(1st year),     SR Edu Center, Warangal (2nd year)',  },
   { term: '2021', degree: '10th', meta: 'Tejaswi High School, Hanamkonda' }
 ];
