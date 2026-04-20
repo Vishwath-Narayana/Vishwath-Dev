@@ -1,55 +1,66 @@
 import { motion } from 'framer-motion';
 import { fadeUp } from '@/lib/animations';
-import heroImg from '@/assets/hero.png';
-import { useDevMode } from '@/contexts/DevModeContext';
 
 export function About() {
-  const { isDevMode } = useDevMode();
   return (
-    <section id="about" className="py-24 px-6 max-w-5xl mx-auto w-full">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-        <motion.div {...fadeUp(0)} className={`order-2 lg:order-1 ${isDevMode ? 'bg-[#050505] p-6 lg:p-8 rounded-xl border border-green-900/30' : ''}`}>
-          <h2 className={`mb-2 transition-all duration-300 ${isDevMode ? 'font-mono text-dev-primary text-xl tracking-tight' : 'text-3xl font-serif text-foreground'}`}>
-            {isDevMode ? '> whoami' : 'Identity'}
-          </h2>
-          {isDevMode && <p className="text-dev-dim font-mono text-xs uppercase mb-6 tracking-wider">system.identity</p>}
-
-          {isDevMode ? (
-            <div className="space-y-4 font-mono text-green-500/80 text-sm">
-              <p className="pl-4 border-l border-green-900/50">{`[status] digital artisan. combining computer science + hci.`}</p>
-              <p className="pl-4 border-l border-green-900/50">{`[philosophy] clarity > complexity. interfaces must adapt implicitly.`}</p>
-              <p className="pl-4 border-l border-green-900/50">{`[idle] exploring typography, minimalist architecture, deep work.`}</p>
+    <section id="about" className="py-32 px-6 w-full relative z-10 bg-[#F7F7F5]">
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_40%] gap-16 md:gap-24 items-center">
+          <motion.div 
+            {...fadeUp(0)}
+            className="flex flex-col gap-12"
+          >
+            <div>
+              <h2 className="text-4xl font-bold text-foreground mb-4 inline-block border-b-2 border-[#0F6E56] pb-2">
+                Identity
+              </h2>
             </div>
-          ) : (
-            <div className="space-y-6 text-muted-foreground leading-relaxed">
+            
+            <div className="space-y-8 text-muted-foreground text-xl leading-relaxed max-w-xl">
               <p>
-                I’m a full-stack developer and designer focused on building scalable, high-performance web applications. I work primarily with the MERN stack, crafting systems that are both technically robust and visually intuitive.
+                I’m a full-stack developer and designer focused on building scalable, high-performance web applications. I work primarily with the <strong className="font-bold text-foreground">MERN stack</strong>, crafting systems that are both technically robust and visually intuitive.
               </p>
-
               <p>
-                My approach blends engineering with design — creating interfaces that feel seamless, responsive, and purposeful. I care deeply about <strong className="font-medium text-foreground">clarity, performance, and meaningful interaction</strong> in every product I build.
+                My approach blends the precision of software engineering with a deep focus on user experience. I believe that performance is a feature, and that the best systems are those that feel effortless to the user.
               </p>
-
               <p>
-                I’m constantly exploring new technologies and refining my process to solve real-world problems with simplicity and precision.
+                When I’m not coding, I’m exploring typography, minimalist architecture, and the intersection of motion and software.
               </p>
             </div>
-          )}
-        </motion.div>
+          </motion.div>
 
-        <motion.div
-          {...fadeUp(0.2)}
-          className="order-1 lg:order-2 flex justify-center lg:justify-end"
-        >
-          <div className={`w-64 h-64 md:w-80 md:h-80 relative group cursor-crosshair transition-all duration-300 ${isDevMode ? 'grayscale contrast-125 sepia brightness-75 hue-rotate-90' : ''}`}>
-            <div className={`absolute inset-0 rounded-[2rem] rotate-3 transition-transform group-hover:rotate-6 duration-500 ${isDevMode ? 'bg-[#050505] border border-green-900/50' : 'bg-muted'}`}></div>
-            <img
-              src={heroImg}
-              alt="Profile"
-              className={`absolute inset-0 w-full h-full object-cover rounded-[2rem] -rotate-3 transition-transform group-hover:rotate-0 duration-500 z-10 ${isDevMode ? 'border border-green-500/50 opacity-80 mix-blend-screen mix-blend-plus-lighter' : 'border border-border shadow-[0_10px_30px_rgba(0,0,0,0.04)]'}`}
-            />
-          </div>
-        </motion.div>
+          <motion.div 
+            {...fadeUp(0.1)}
+            className="bg-white border-[0.5px] border-[#0F6E56] rounded-2xl p-8 shadow-sm flex flex-col"
+          >
+            {[
+              { num: '2+', label: 'Years of building' },
+              { num: '3', label: 'Production systems' },
+              { num: '5+', label: 'Technologies mastered' },
+              { num: '', label: 'Open to work', isStatus: true }
+            ].map((stat, i) => (
+              <div 
+                key={i} 
+                className={`py-6 flex flex-col gap-1 border-b-[0.5px] border-[#eee] last:border-0 last:pb-0 first:pt-0`}
+              >
+                {stat.isStatus ? (
+                  <div className="flex flex-col gap-1">
+                    <div className="flex items-center gap-2 text-[24px] font-semibold text-[#0F6E56]">
+                       <span className="w-2.5 h-2.5 rounded-full bg-[#22C55E]"></span>
+                       <span>{stat.label}</span>
+                    </div>
+                    <span className="text-[13px] text-muted-foreground">Available now</span>
+                  </div>
+                ) : (
+                  <>
+                    <span className="text-[32px] font-semibold text-foreground leading-none">{stat.num}</span>
+                    <span className="text-[13px] text-muted-foreground">{stat.label}</span>
+                  </>
+                )}
+              </div>
+            ))}
+          </motion.div>
+        </div>
       </div>
     </section>
   );

@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 import { fadeUp } from '@/lib/animations';
-import { useDevMode } from '@/contexts/DevModeContext';
 
 const PRINCIPLES = [
   {
@@ -29,24 +28,20 @@ const THOUGHTS = [
 ];
 
 export function Methodology() {
-  const { isDevMode } = useDevMode();
-
   return (
-    <section className="py-24 px-6 max-w-5xl mx-auto w-full relative z-10 flex flex-col gap-16 md:gap-24">
+    <section className="py-24 px-6 max-w-5xl mx-auto w-full relative z-10 flex flex-col gap-16 md:gap-24 bg-background">
       {/* PRINCIPLES */}
       <motion.div {...fadeUp(0)} className="w-full">
-        {isDevMode ? (
-          <h3 className="text-dev-soft font-mono text-sm border-b border-dev-primary/20 pb-2 mb-6 uppercase tracking-wider">{"> system.principles"}</h3>
-        ) : (
-          <h3 className="text-2xl font-serif text-foreground mb-6">Principles</h3>
-        )}
-        <div className={`flex flex-col gap-6 ${isDevMode ? 'font-mono text-sm bg-[#050505] border border-dev-primary/30 p-8 rounded-xl shadow-[inset_0_0_20px_rgba(0,255,159,0.03)]' : ''}`}>
+        <div className="mb-12">
+          <h2 className="text-4xl font-bold text-foreground mb-4 inline-block border-b-2 border-[#0F6E56] pb-2">Principles</h2>
+        </div>
+        <div className="flex flex-col gap-4">
           {PRINCIPLES.map((principle, i) => (
-            <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-8">
-              <span className={`shrink-0 md:w-64 font-medium ${isDevMode ? 'text-dev-primary/90' : 'text-foreground'}`}>
-                {isDevMode ? `→ ${principle.title}` : principle.title}
+            <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-12 p-6 rounded-xl hover:bg-[#E1F5EE]/30 transition-colors group">
+              <span className="shrink-0 md:w-64 font-bold text-lg text-foreground group-hover:text-[#0F6E56] transition-colors uppercase tracking-tight">
+                {principle.title}
               </span>
-              <span className={`${isDevMode ? 'text-dev-primary/60' : 'text-muted-foreground'}`}>
+              <span className="text-lg leading-relaxed text-muted-foreground flex-1">
                 {principle.description}
               </span>
             </div>
@@ -56,18 +51,16 @@ export function Methodology() {
 
       {/* THOUGHTS */}
       <motion.div {...fadeUp(0.1)} className="w-full">
-        {isDevMode ? (
-          <h3 className="text-dev-soft font-mono text-sm border-b border-dev-primary/20 pb-2 mb-6 uppercase tracking-wider">{"> system.thoughts"}</h3>
-        ) : (
-          <h3 className="text-2xl font-serif text-foreground mb-6">Thoughts</h3>
-        )}
-        <div className={`flex flex-col gap-6 ${isDevMode ? 'font-mono text-sm bg-[#050505] border border-dev-primary/30 p-8 rounded-xl shadow-[inset_0_0_20px_rgba(0,255,159,0.03)]' : ''}`}>
+        <div className="mb-12">
+          <h2 className="text-4xl font-bold text-foreground mb-4 inline-block border-b-2 border-[#0F6E56] pb-2">Thoughts</h2>
+        </div>
+        <div className="flex flex-col gap-4">
           {THOUGHTS.map((thought, i) => (
-            <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-8">
-              <span className={`shrink-0 md:w-64 font-medium ${isDevMode ? 'text-dev-primary/90' : 'text-foreground'}`}>
-                {isDevMode ? `→ ${thought.title}` : thought.title}
+            <div key={i} className="flex flex-col md:flex-row md:items-start gap-2 md:gap-12 p-6 rounded-xl hover:bg-[#E1F5EE]/30 transition-colors group">
+              <span className="shrink-0 md:w-64 font-bold text-lg text-foreground group-hover:text-[#0F6E56] transition-colors uppercase tracking-tight">
+                {thought.title}
               </span>
-              <span className={`${isDevMode ? 'text-dev-primary/60' : 'text-muted-foreground'}`}>
+              <span className="text-lg leading-relaxed text-muted-foreground flex-1">
                 {thought.description}
               </span>
             </div>

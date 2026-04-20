@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { fadeUp } from '@/lib/animations';
-import { useDevMode } from '@/contexts/DevModeContext';
+import { FolderLock, MessageCircle, MousePointer2, Folder, File, Search, Send, User } from 'lucide-react';
 
 const PROJECTS = [
   {
@@ -9,6 +9,7 @@ const PROJECTS = [
     title: "Role-Based File Sharing System",
     description:
       "A secure file management system enabling role-based access, controlled sharing, and scalable cloud storage.",
+    mockupType: "file",
     techStack: {
       Frontend: "React, Tailwind",
       Backend: "Node.js, Express",
@@ -33,29 +34,6 @@ const PROJECTS = [
         "Focused on simplicity and clarity to ensure users can manage files without friction.",
       impact:
         "Enabled secure collaboration with controlled access and improved usability."
-    },
-    devInternals: {
-      diagram: [
-        "[Client (React)] ── HTTP ──> [Express Server]",
-        "                                │",
-        "                                ├──> [Auth Middleware]",
-        "                                │",
-        "                                ├──> [Role-Based Access Layer]",
-        "                                │",
-        "                                └──> [MongoDB + Cloudinary]"
-      ],
-      logs: [
-        "> initializing file_service...",
-        "> connecting to MongoDB...",
-        "> [OK] database connected",
-        "> uploading file to cloud storage...",
-        "> [OK] file stored successfully"
-      ],
-      services: [
-        { name: "API Server", status: "Running" },
-        { name: "MongoDB", status: "Connected" },
-        { name: "Cloudinary", status: "Active" }
-      ]
     }
   },
   {
@@ -63,6 +41,7 @@ const PROJECTS = [
     title: "Real-Time Chat System",
     description:
       "A real-time messaging system supporting direct and group communication with low-latency updates.",
+    mockupType: "chat",
     techStack: {
       Frontend: "React, Tailwind",
       Backend: "Node.js, Express",
@@ -87,24 +66,6 @@ const PROJECTS = [
         "Built a smooth, responsive UI with subtle animations for a native-like experience.",
       impact:
         "Delivered seamless communication experience with reliable real-time updates."
-    },
-    devInternals: {
-      diagram: [
-        "[Client] ── WebSocket ──> [Socket Server]",
-        "                               │",
-        "                               ├──> [Message Handler]",
-        "                               └──> [MongoDB Storage]"
-      ],
-      logs: [
-        "> starting websocket server...",
-        "> user connected: id=3421",
-        "> message broadcasted",
-        "> [OK] message delivered"
-      ],
-      services: [
-        { name: "Socket Server", status: "Running" },
-        { name: "MongoDB", status: "Connected" }
-      ]
     }
   },
   {
@@ -112,6 +73,7 @@ const PROJECTS = [
     title: "Developer Portfolio System",
     description:
       "An interactive portfolio system blending engineering and design through dynamic UI and motion-based interactions.",
+    mockupType: "portfolio",
     techStack: {
       Frontend: "React, Tailwind",
       Backend: "—",
@@ -136,52 +98,23 @@ const PROJECTS = [
         "Focused on typography, spacing, and motion to create a distinctive experience.",
       impact:
         "Created a unique developer identity combining engineering and UI/UX design."
-    },
-    devInternals: {
-      diagram: [
-        "[User Input] ──> [Mode Toggle System]",
-        "                         │",
-        "        ┌───────────────┴───────────────┐",
-        "   [Visual UI]                  [SYS.DEV UI]"
-      ],
-      logs: [
-        "> initializing portfolio.system...",
-        "> loading visual mode...",
-        "> switching to sys.dev...",
-        "> [OK] interface ready"
-      ],
-      services: [
-        { name: "UI Engine", status: "Running" },
-        { name: "Animation Layer", status: "Active" }
-      ]
     }
   }
 ];
 
 export function Work() {
-  const { isDevMode } = useDevMode();
-
   return (
     <section id="work" className="py-24 px-6 max-w-5xl mx-auto w-full relative">
       <div className="absolute inset-0 pointer-events-none glow-overlay opacity-50 rounded-3xl" />
-      <motion.div {...fadeUp(0)} className="mb-16 md:mb-20 relative z-10 w-full">
-        {isDevMode ? (
-          <div>
-            <h2 className="text-dev-primary font-mono text-xl md:text-2xl tracking-tight mb-8 w-fit drop-shadow-[0_0_8px_rgba(0,255,159,0.3)]">{"> systems.list()"}</h2>
-            <p className="text-dev-soft/80 font-mono text-sm max-w-xl leading-relaxed">
-              Production-focused applications combining engineering and design thinking.
-            </p>
-          </div>
-        ) : (
-          <div>
-            <h2 className="text-3xl font-serif text-foreground mb-4 w-fit hover:tracking-wide transition-all duration-300">Systems I've built</h2>
-            <p className="text-muted-foreground max-w-xl hover:text-foreground transition-colors duration-300 leading-relaxed">
-              Production-focused applications combining engineering and design thinking.
-            </p>
-          </div>
-        )}
+      <motion.div {...fadeUp(0)} className="mb-20 relative z-10 w-full">
+        <div>
+          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4 inline-block border-b-2 border-[#0F6E56] pb-2">Selected Systems</h2>
+          <p className="text-xl text-muted-foreground max-w-2xl leading-relaxed mt-4">
+            Production-focused applications combining engineering and design thinking.
+          </p>
+        </div>
       </motion.div>
-      <div className="flex flex-col gap-6 relative z-10">
+      <div className="flex flex-col gap-8 relative z-10">
         {PROJECTS.map((project, i) => (
           <ProjectCard key={project.id} project={project} index={i} />
         ))}
@@ -190,67 +123,200 @@ export function Work() {
   );
 }
 
+function MockupUI({ type }: { type: string }) {
+  if (type === 'file') {
+    return (
+      <div className="w-full h-full bg-[#0A2540] text-white/90 p-4 font-sans text-[10px] flex gap-3">
+        {/* Sidebar */}
+        <div className="w-24 border-r border-white/10 pr-3 flex flex-col gap-2">
+          <div className="font-bold text-teal-400 mb-1 opacity-70">STORAGE</div>
+          <div className="flex items-center gap-2 bg-white/5 p-1.5 rounded"><Folder size={12} className="text-teal-400" /> Documents</div>
+          <div className="flex items-center gap-2 p-1.5 opacity-60"><Folder size={12} /> Images</div>
+          <div className="flex items-center gap-2 p-1.5 opacity-60"><Folder size={12} /> Shared</div>
+        </div>
+        {/* Main */}
+        <div className="flex-1 flex flex-col gap-3">
+          <div className="flex items-center justify-between border-b border-white/10 pb-2">
+            <div className="flex items-center gap-2 bg-white/5 px-2 py-1 rounded w-32 border border-white/5">
+              <Search size={10} className="opacity-50" />
+              <span className="opacity-40 italic">Search files...</span>
+            </div>
+            <div className="w-6 h-6 rounded-full bg-teal-500/20 border border-teal-500/30 flex items-center justify-center text-teal-400 font-bold">VN</div>
+          </div>
+          <div className="grid grid-cols-2 gap-2">
+             {[1,2,3,4].map(i => (
+               <div key={i} className="bg-white/5 border border-white/10 p-2 rounded flex items-center gap-2 group-hover:bg-white/10 transition-colors">
+                  <div className="w-8 h-8 rounded bg-teal-500/10 flex items-center justify-center">
+                    <File size={14} className="text-teal-400" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="font-medium">report_v0{i}.pdf</span>
+                    <span className="opacity-40 text-[8px]">1.2 MB</span>
+                  </div>
+               </div>
+             ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+  
+  if (type === 'chat') {
+    return (
+      <div className="w-full h-full bg-[#1A1040] text-white/90 p-4 font-sans text-[10px] flex gap-3">
+        {/* Sidebar */}
+        <div className="w-20 border-r border-white/10 pr-2 flex flex-col gap-2">
+          <div className="flex items-center gap-2 p-1.5 bg-purple-500/20 rounded border border-purple-500/20"><div className="w-3 h-3 rounded-full bg-purple-400" /> General</div>
+          <div className="flex items-center gap-2 p-1.5 opacity-40"><div className="w-3 h-3 rounded-full bg-white/20" /> Design</div>
+          <div className="flex items-center gap-2 p-1.5 opacity-40"><div className="w-3 h-3 rounded-full bg-white/20" /> Engineering</div>
+        </div>
+        {/* Chat Area */}
+        <div className="flex-1 flex flex-col">
+          <div className="flex-1 flex flex-col gap-3 py-1">
+             <div className="flex gap-2">
+                <div className="w-5 h-5 rounded-full bg-purple-500/20 border border-purple-500/30 flex items-center justify-center shrink-0"><User size={10} /></div>
+                <div className="bg-white/5 p-2 rounded-2xl rounded-tl-none max-w-[120px] leading-relaxed border border-white/5">
+                  Hey, did you check the latest system logs for the file service?
+                </div>
+             </div>
+             <div className="flex gap-2 flex-row-reverse">
+                <div className="w-5 h-5 rounded-full bg-teal-500/20 border border-teal-500/30 flex items-center justify-center shrink-0">VN</div>
+                <div className="bg-purple-600/30 p-2 rounded-2xl rounded-tr-none max-w-[120px] leading-relaxed border border-purple-500/20">
+                  Just pulled them. Everything looks green except some latencies on AWS-East.
+                </div>
+             </div>
+             <div className="text-[8px] opacity-40 italic mt-auto flex items-center gap-2">
+                <div className="flex gap-1">
+                  <div className="w-1 h-1 bg-white/40 rounded-full animate-bounce"></div>
+                  <div className="w-1 h-1 bg-white/40 rounded-full animate-bounce [animation-delay:0.2s]"></div>
+                  <div className="w-1 h-1 bg-white/40 rounded-full animate-bounce [animation-delay:0.4s]"></div>
+                </div>
+                Sarah is typing...
+             </div>
+          </div>
+          <div className="mt-2 flex gap-2">
+             <div className="flex-1 bg-white/5 border border-white/10 rounded-full px-3 py-1.5 opacity-40 italic">Type a message...</div>
+             <div className="w-8 h-8 rounded-full bg-purple-500 flex items-center justify-center shrink-0"><Send size={12} /></div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (type === 'portfolio') {
+    return (
+      <div className="w-full h-full bg-[#111111] text-white/90 p-3 font-sans text-[10px] flex flex-col gap-4 overflow-hidden">
+        {/* Nav */}
+        <div className="flex items-center justify-between border-b border-white/5 pb-2">
+          <div className="font-bold flex items-center gap-1"><div className="w-2 h-2 rounded-full bg-teal-500" /> vishwath.</div>
+          <div className="flex gap-3 opacity-60">
+             <span>About</span>
+             <span>Work</span>
+             <span className="text-teal-400">Contact</span>
+          </div>
+        </div>
+        {/* Hero Mini */}
+        <div className="text-center py-2 px-4 border border-white/5 rounded-xl bg-white/[0.02]">
+           <div className="font-bold text-sm mb-1">Crafting scaling infra.</div>
+           <p className="opacity-40 text-[8px]">Software engineer & system architect.</p>
+        </div>
+        {/* Project Grid Mini */}
+        <div className="grid grid-cols-2 gap-2 mt-auto">
+          {[1,2,3,4].map(i => (
+            <div key={i} className="aspect-video bg-white/[0.05] rounded-lg border border-white/[0.05] flex flex-col justify-end p-2 pb-1.5">
+               <div className="h-1 w-8 bg-teal-500/40 rounded-full mb-1"></div>
+               <div className="h-1.5 w-12 bg-white/20 rounded-full"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+
+  return null;
+}
+
 function ProjectCard({ project, index }: { project: any, index: number }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { isDevMode } = useDevMode();
 
   return (
     <motion.div 
       {...fadeUp(index * 0.1)}
-      className={`relative rounded-2xl border transition-all duration-300 hover:-translate-y-1 overflow-hidden group opacity-85 hover:opacity-100 ${isDevMode ? 'bg-[#050505] border-dev-primary/30 shadow-[0_0_0_1px_rgba(0,255,159,0.1),0_10px_40px_rgba(0,255,159,0.05)] hover:shadow-[0_0_0_1px_rgba(0,255,159,0.3),0_10px_40px_rgba(0,255,159,0.15)] hover:border-dev-primary/60' : 'bg-card border-border'}`}
+      className="relative rounded-2xl border transition-all duration-300 hover:-translate-y-[2px] overflow-hidden group bg-card border-border hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]"
     >
       <div className="absolute inset-0 pointer-events-none bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.015]" />
-      {!isDevMode && <div className="absolute inset-0 bg-muted/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:24px_24px]" />}
-      {isDevMode && <div className="absolute inset-0 bg-[linear-gradient(to_right,#00ff0005_1px,transparent_1px),linear-gradient(to_bottom,#00ff0005_1px,transparent_1px)] bg-[size:48px_48px] opacity-100" />}
-      <div className="absolute inset-0 pointer-events-none glow-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[inherit]" />
       
-      <div className="relative z-10 p-6 md:p-8">
+      {/* Visual Preview Area */}
+      <div className="w-full aspect-[16/9] bg-muted relative overflow-hidden border-b border-border transition-transform duration-700 group-hover:scale-[1.005]">
+        {/* Browser Frame Mockup */}
+        <div className="absolute inset-0 flex flex-col">
+          <div className="h-8 bg-muted/80 backdrop-blur-md border-b border-border flex items-center px-4 gap-1.5 z-20">
+            <div className="w-2.5 h-2.5 rounded-full bg-border"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-border"></div>
+            <div className="w-2.5 h-2.5 rounded-full bg-border"></div>
+            <div className="flex-1 mx-4 bg-background/50 h-5 rounded-md border border-border flex items-center px-2">
+               <div className="w-2 h-2 rounded-full bg-teal-500/30 mr-2"></div>
+               <div className="w-24 h-1 bg-border/50 rounded-full"></div>
+            </div>
+          </div>
+          <div className="flex-1 relative overflow-hidden z-10 transition-transform duration-500 group-hover:scale-105">
+             <MockupUI type={project.mockupType} />
+          </div>
+        </div>
+      </div>
+
+      <div className="relative z-20 p-6 md:p-10 bg-card">
         <div 
           className="flex flex-col lg:flex-row lg:items-start justify-between gap-6 cursor-pointer"
           onClick={() => setIsOpen(!isOpen)}
         >
           <div className="max-w-2xl">
-            <h3 className={`text-2xl font-medium mb-2 transition-colors duration-300 ${isDevMode ? 'text-dev-primary font-mono tracking-tight group-hover:text-white drop-shadow-[0_0_8px_rgba(0,255,159,0.5)]' : 'text-foreground group-hover:text-primary'}`}>
-              {isDevMode ? `<${project.title.replace(/\s+/g, '')} />` : project.title}
+            <div className="flex items-center gap-3 mb-3">
+              <span className="text-[10px] font-bold uppercase tracking-widest text-[#0F6E56] transition-all relative">
+                System Module {index + 1}
+                <span className="absolute -bottom-1 left-0 w-full h-0.5 bg-[#0F6E56]/30 rounded-full"></span>
+              </span>
+            </div>
+            <h3 className="text-3xl font-bold mb-4 transition-colors duration-300 text-foreground group-hover:text-brand">
+              {project.title}
             </h3>
-            <p className={`mb-6 transition-colors leading-relaxed ${isDevMode ? 'text-dev-soft font-mono text-sm opacity-80' : 'text-muted-foreground group-hover:text-foreground'}`}>
+            <p className="mb-8 text-lg leading-relaxed max-w-[520px] text-muted-foreground group-hover:text-foreground/90">
               {project.description}
             </p>
             
-            <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm mb-6">
+            <div className="flex flex-wrap gap-x-8 gap-y-4 text-sm mb-8">
               {Object.entries(project.techStack).map(([layer, tech]) => (
-                <div key={layer}>
-                  <span className={`${isDevMode ? (layer === 'Frontend' ? 'text-dev-soft/70' : layer === 'Backend' ? 'text-dev-primary/90' : 'text-[#aaffcc]/60') + ' font-mono' : 'text-muted-foreground'} mr-2`}>
-                    {isDevMode ? `[${layer.toLowerCase()}]` : layer}
+                <div key={layer} className="flex flex-col gap-1">
+                  <span className="text-muted-foreground font-semibold text-[10px] uppercase tracking-wider">
+                    {layer}
                   </span>
-                  <span className={`font-medium ${isDevMode ? 'text-dev-primary font-mono text-xs' : 'text-foreground'}`}>
+                  <span className="font-medium text-foreground">
                     {tech as string}
                   </span>
                 </div>
               ))}
             </div>
 
-            <div className="flex flex-wrap gap-3">
+            <div className="flex flex-wrap gap-2">
               {project.metrics.map((metric: string, i: number) => (
-                <span key={i} className={`text-xs font-medium px-3 py-1.5 rounded-full border shadow-sm ${isDevMode ? 'bg-[#050505] text-green-300 border-green-900/50 font-mono' : 'bg-muted text-foreground border-border'}`}>
-                  {isDevMode ? `> ${metric}` : metric}
+                <span key={i} className="text-xs font-semibold px-4 py-1.5 rounded-full border transition-all duration-300 bg-[#E1F5EE] text-[#0F6E56] border-[#0F6E56]/30 hover:bg-[#D1EFE4]">
+                  {metric}
                 </span>
               ))}
             </div>
           </div>
 
-          <div className={`text-sm font-medium flex items-center gap-1 shrink-0 mt-4 lg:mt-0 transition-opacity hover:opacity-70 p-2 rounded-full border shadow-sm backdrop-blur-sm self-start ${isDevMode ? 'bg-[#050505] text-green-500 border-green-900/50 font-mono' : 'bg-card/80 text-muted-foreground border-border/50'}`}>
-            {isOpen ? (isDevMode ? "collapse_sys()" : "Close module system") : (isDevMode ? "expand_sys()" : "Expand module system")} 
-            <motion.span animate={{ rotate: isOpen ? 180 : 0 }} className="inline-block ml-1">
+          <div className="text-sm font-semibold flex items-center gap-2 shrink-0 lg:mt-0 transition-all hover:opacity-100 p-3 px-5 rounded-full border shadow-soft self-start bg-background text-muted-foreground border-border hover:border-brand hover:text-brand">
+            {isOpen ? "Fold analysis" : "View breakdown"} 
+            <motion.span animate={{ rotate: isOpen ? 180 : 0 }} className="inline-block">
               ↓
             </motion.span>
           </div>
         </div>
 
         <AnimatePresence mode="wait">
-          {isOpen && !isDevMode && (
+          {isOpen && (
             <motion.div
-              key="visual-mode"
               initial={{ height: 0, opacity: 0, filter: 'blur(4px)' }}
               animate={{ height: "auto", opacity: 1, filter: 'blur(0px)' }}
               exit={{ height: 0, opacity: 0, filter: 'blur(4px)' }}
@@ -282,68 +348,6 @@ function ProjectCard({ project, index }: { project: any, index: number }) {
                     <h4 className="font-semibold text-foreground mb-2">6. Impact</h4>
                     <p className="text-muted-foreground leading-relaxed">{project.details.impact}</p>
                  </div>
-              </div>
-            </motion.div>
-          )}
-
-          {isOpen && isDevMode && (
-            <motion.div
-              key="dev-mode"
-              initial={{ height: 0, opacity: 0 }}
-              animate={{ height: "auto", opacity: 1 }}
-              exit={{ height: 0, opacity: 0 }}
-              transition={{ duration: 0.4, ease: "easeInOut" }}
-              className="overflow-hidden"
-            >
-              <div className="pt-8 mt-8 border-t border-dev-primary/20 grid grid-cols-1 md:grid-cols-2 gap-8 text-sm font-mono text-dev-primary/80">
-                
-                {/* System Logs */}
-                <div className="bg-[#050505] border border-dev-primary/30 p-4 rounded-xl shadow-[inset_0_0_20px_rgba(0,255,159,0.03)]">
-                  <h4 className="text-xs text-dev-soft mb-3 uppercase tracking-wider border-b border-dev-primary/20 pb-2">_system.stdout</h4>
-                  <div className="space-y-1.5 text-xs opacity-80">
-                    {project.devInternals.logs.map((log: string, idx: number) => (
-                       <motion.div 
-                         key={idx} 
-                         initial={{ opacity: 0, x: -5 }} 
-                         animate={{ opacity: 1, x: 0 }} 
-                         transition={{ delay: idx * 0.1 }}
-                       >
-                         {log}
-                       </motion.div>
-                    ))}
-                    <motion.div 
-                       animate={{ opacity: [0, 1, 0] }} 
-                       transition={{ repeat: Infinity, duration: 1 }}
-                       className="inline-block w-2 h-3 bg-green-500 mt-1"
-                    />
-                  </div>
-                </div>
-
-                {/* Architecture Graph */}
-                <div className="bg-[#050505] border border-dev-primary/30 p-4 rounded-xl shadow-[inset_0_0_20px_rgba(0,255,159,0.03)] overflow-x-auto">
-                  <h4 className="text-xs text-dev-soft mb-3 uppercase tracking-wider border-b border-dev-primary/20 pb-2">_architecture.graph</h4>
-                  <pre className="text-[10px] leading-relaxed text-dev-soft opacity-80">
-                    {project.devInternals.diagram.join('\n')}
-                  </pre>
-                </div>
-
-                {/* System Status Indicators */}
-                <div className="bg-[#050505] border border-green-900/40 p-4 rounded-xl shadow-inner md:col-span-2">
-                  <h4 className="text-xs text-green-600 mb-4 uppercase tracking-wider border-b border-green-900/30 pb-2">_service.status</h4>
-                  <div className="flex flex-wrap gap-8">
-                    {project.devInternals.services.map((service: any, idx: number) => (
-                      <div key={idx} className="flex items-center gap-2">
-                        <span className="relative flex h-2 w-2">
-                          <span className={`animate-ping absolute inline-flex h-full w-full rounded-full opacity-75 ${service.status === 'Running' || service.status === 'Connected' || service.status === 'Active' ? 'bg-green-400' : 'bg-green-700'}`}></span>
-                          <span className={`relative inline-flex rounded-full h-2 w-2 ${service.status === 'Running' || service.status === 'Connected' || service.status === 'Active' ? 'bg-green-500' : 'bg-green-800'}`}></span>
-                        </span>
-                        <span className="text-xs uppercase text-green-500">{service.name}</span>
-                        <span className="text-[10px] text-green-600/70 border border-green-900/50 px-1.5 py-0.5 rounded opacity-80">[{service.status}]</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
               </div>
             </motion.div>
           )}

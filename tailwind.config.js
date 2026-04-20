@@ -37,8 +37,12 @@ export default {
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))",
+          DEFAULT: "#0F6E56",
           foreground: "hsl(var(--foreground))",
+        },
+        brand: {
+          DEFAULT: "#0F6E56",
+          foreground: "#ffffff",
         },
         popover: {
           DEFAULT: "hsl(var(--card))",
@@ -56,6 +60,7 @@ export default {
       },
       boxShadow: {
         'soft': '0 10px 30px rgba(0,0,0,0.04)',
+        'premium': '0 20px 50px rgba(0,0,0,0.05)',
       }
     },
   },
